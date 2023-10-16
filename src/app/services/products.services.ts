@@ -7,11 +7,13 @@ import {
 import { Observable, catchError, delay, retry, throwError } from 'rxjs';
 import { IProduct } from '../models/product';
 import { ErrorService } from './error.service';
+import { tap } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root',
 })
 export class ProductServises {
   constructor(private http: HttpClient, private errorService: ErrorService) {}
+  products: IProduct[] = [];
 
   getAll(): Observable<IProduct[]> {
     return this.http
@@ -20,10 +22,20 @@ export class ProductServises {
           fromString: 'limit=5',
         }),
       })
-      .pipe(delay(200), retry(2), catchError(this.errorHandler.bind(this)));
+      .pipe(
+        delay(200),
+        retry(2),
+        tap((products: IProduct[]) => (this.products = products)),
+        catchError(this.errorHandler.bind(this))
+      );
   }
   private errorHandler(error: HttpErrorResponse) {
     this.errorService.handle(error.message);
     return throwError(() => error.message);
+  }
+  create(product: IProduct): Observable<IProduct> {
+    return this.http
+      .post<IProduct>('https://fakestoreapi.com/products', product)
+      .pipe(tap((prod) => this.products.push(prod)));
   }
 }
