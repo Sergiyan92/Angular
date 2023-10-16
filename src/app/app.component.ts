@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IProduct } from './models/product';
 import { ProductServises } from './services/products.services';
 import { Observable, tap } from 'rxjs';
+import { ModelService } from './services/model.service';
 
 @Component({
   selector: 'app-root',
@@ -15,7 +16,10 @@ export class AppComponent implements OnInit {
   products$: Observable<IProduct[]>;
   term = '';
 
-  constructor(private productServises: ProductServises) {}
+  constructor(
+    private productServises: ProductServises,
+    public modalServices: ModelService
+  ) {}
 
   ngOnInit(): void {
     this.loading = true;
