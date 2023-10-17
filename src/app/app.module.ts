@@ -12,6 +12,8 @@ import { CreateProductComponent } from './components/create-product/create-produ
 import { FocusDirective } from './directives/focus.directive';
 import { ProductPageComponent } from './pages/product-page/product-page.component';
 import { AboutPageComponent } from './pages/about-page/about-page.component';
+import { AppRoutingModule } from './app-routing.module';
+import { NavigationComponent } from './components/navigation/navigation.component';
 
 @NgModule({
   declarations: [
@@ -24,8 +26,15 @@ import { AboutPageComponent } from './pages/about-page/about-page.component';
     FocusDirective,
     ProductPageComponent,
     AboutPageComponent,
+    NavigationComponent,
   ],
-  imports: [BrowserModule, HttpClientModule, ReactiveFormsModule, FormsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
