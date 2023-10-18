@@ -38,4 +38,13 @@ export class ProductServises {
       .post<IProduct>('https://fakestoreapi.com/products', product)
       .pipe(tap((prod) => this.products.push(prod)));
   }
+  delete(id: number): Observable<any> {
+    const url = `https://fakestoreapi.com/products/${id}`;
+    return this.http.delete(url).pipe(
+      tap(() => {
+        this.products = this.products.filter((product) => product.id !== id);
+      }),
+      catchError(this.errorHandler.bind(this))
+    );
+  }
 }

@@ -8,7 +8,5 @@ import { ErrorService } from 'src/app/services/error.service';
 })
 export class GlobalErrorComponent implements OnInit {
   constructor(public errorService: ErrorService) {}
-  ngOnInit(): void {
-    throw new Error('Method not implemented.');
-  }
+  ngOnInit(): void {}
 }
