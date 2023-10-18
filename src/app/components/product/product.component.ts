@@ -9,9 +9,10 @@ import { ProductServises } from 'src/app/services/products.services';
 export class ProductComponent {
   @Input() product: IProduct;
   details = false;
+
   constructor(private productService: ProductServises) {} // Ініціалізуйте сервіс
 
-  deleteProduct(id: number): void {
+  deleteProduct(id: number) {
     this.productService.delete(id).subscribe(
       () => {
         // Додайте код, який повинен виконуватися після успішного видалення
